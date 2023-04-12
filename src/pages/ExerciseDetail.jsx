@@ -20,7 +20,13 @@ const ExerciseDetail = () => {
 
 			const exerciseDetailData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/exercise/${id}`, exerciseOptions)
 			setExerciseDetail(exerciseDetailData)
+		}
 
+		fetchExerciseDetailData()
+	}, [])
+
+	useEffect(()=>{
+		const fetchOtherData = async () => {
 			const youtubeSearchData = await fetchData(`https://youtube-search-and-download.p.rapidapi.com/search?query=gym tutorial ${exerciseDetail.name}`, youtubeSearchOptions)
 			setExerciseVideos(youtubeSearchData.contents)
 
@@ -29,12 +35,12 @@ const ExerciseDetail = () => {
 
 			const equimentExercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/equipment/${exerciseDetail.equipment}`, exerciseOptions);
 			setEquipmentExercises(equimentExercisesData);
-
 		}
 
-		fetchExerciseDetailData()
-	}, [])
+		fetchOtherData()
+	}, [exerciseDetail])
 
+	
 		
 	if (!exerciseDetail) return <div>No Data</div>;
 
